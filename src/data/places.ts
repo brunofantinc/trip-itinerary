@@ -92,6 +92,13 @@ export const places: Place[] = [
     blurb: 'TBD',
     mapsUrl: appleMaps('Pomme Eatery'),
   },
+  {
+    id: 'leonetta',
+    name: 'Leonetta',
+    kind: 'resto',
+    blurb: 'TBD',
+    mapsUrl: appleMaps('Leonetta'),
+  },
 
   // Little bites
   {

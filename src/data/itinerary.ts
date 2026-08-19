@@ -34,7 +34,7 @@ export const itinerary: Day[] = [
   {
     focus: 'TBD',
     items: [
-      { time: 'Dinner', title: 'Marc', placeId: 'marc', kind: 'eat' },
+      { time: '20:00', title: 'Marc', placeId: 'marc', kind: 'eat' },
     ],
   },
   // Day 4
@@ -42,14 +42,14 @@ export const itinerary: Day[] = [
     focus: 'TBD',
     items: [
       { time: 'Lunch', title: 'Magnolia', placeId: 'magnolia', kind: 'eat' },
-      { time: 'Dinner', title: 'Cosmo', placeId: 'cosmo', kind: 'eat' },
+      { time: '20:00', title: 'Cosmo', placeId: 'cosmo', kind: 'eat' },
     ],
   },
   // Day 5
   {
     focus: 'TBD',
     items: [
-      { time: 'Dinner', title: 'Atira-te ao Rio', placeId: 'atira-te-ao-rio', kind: 'eat' },
+      { time: '19:00', title: 'Atira-te ao Rio', placeId: 'atira-te-ao-rio', kind: 'eat' },
     ],
   },
   // Day 6
@@ -57,7 +57,7 @@ export const itinerary: Day[] = [
     focus: 'TBD',
     items: [
       { time: 'Lunch', title: 'Taberna Sal Grosso', placeId: 'sal-grosso', kind: 'eat' },
-      { time: 'Dinner', title: 'Pomme Eatery', placeId: 'pomme-eatery', kind: 'eat' },
+      { time: '20:00', title: 'Pomme Eatery', placeId: 'pomme-eatery', kind: 'eat' },
     ],
   },
   // Day 7
@@ -65,7 +65,7 @@ export const itinerary: Day[] = [
     focus: 'TBD',
     items: [
       { time: 'Lunch', title: 'Cantinho do Avillez', placeId: 'cantinho-do-avillez', kind: 'eat' },
-      { time: 'Dinner', title: 'Tapisco', placeId: 'tapisco', kind: 'eat' },
+      { time: '20:00', title: 'Leonetta', placeId: 'leonetta', kind: 'eat' },
     ],
   },
   // Day 8
