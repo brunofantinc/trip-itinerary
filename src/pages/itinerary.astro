@@ -3,13 +3,6 @@ import Base from '../layouts/Base.astro';
 import Card from '../components/Card.astro';
 import { itinerary } from '../data/itinerary';
 
-const fmtDay = (iso: string) =>
-  new Date(iso).toLocaleDateString('en-GB', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  });
-
 const kindDot: Record<string, string> = {
   travel: 'bg-sky-500',
   eat: 'bg-[color:var(--color-accent)]',
@@ -23,10 +16,7 @@ const kindDot: Record<string, string> = {
   <ol class="space-y-6">
     {itinerary.map((day, i) => (
       <li>
-        <div class="mb-2 flex items-baseline justify-between">
-          <h2 class="font-display text-2xl">Day {i + 1}</h2>
-          <span class="text-sm text-[color:var(--color-muted)]">{fmtDay(day.date)}</span>
-        </div>
+        <h2 class="mb-2 font-display text-2xl">Day {i + 1}</h2>
         <Card>
           <p class="mb-3 text-sm font-medium text-[color:var(--color-accent)]">{day.focus}</p>
           {day.summary && <p class="mb-3 text-sm text-[color:var(--color-muted)]">{day.summary}</p>}

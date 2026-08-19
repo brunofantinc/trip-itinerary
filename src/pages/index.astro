@@ -3,26 +3,19 @@ import Base from '../layouts/Base.astro';
 import { trip } from '../data/trip';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const fmt = (iso: string) =>
-  new Date(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }).toUpperCase();
-const year = new Date(trip.startDate).getFullYear();
-const dateLine = `${fmt(trip.startDate)} — ${fmt(trip.endDate).replace(/^[A-Z]+ /, '')}, ${year}`;
 ---
 
 <Base title={trip.destination} variant="hero">
   <div class="relative flex min-h-[100dvh] flex-col bg-[color:var(--color-surface)]">
-    <div class="px-6 pb-6 pt-6 text-center">
-      <p class="mt-2 text-[11px] tracking-[0.35em] text-[color:var(--color-muted)]">
-        {dateLine}
-      </p>
-      <h1 class="mt-10 font-display text-[64px] leading-none tracking-[0.15em] sm:text-[80px]">
+    <div class="px-6 pb-6 pt-20 text-center">
+      <h1 class="font-display text-[64px] leading-none tracking-[0.15em] sm:text-[80px]">
         {trip.destination.toUpperCase()}
       </h1>
       <p
         class="mt-3 text-2xl text-[color:var(--color-muted)] sm:text-3xl"
         style="font-family: 'Cormorant Garamond', ui-serif, Georgia, serif; font-style: italic; font-weight: 400;"
       >
-        Travel Itinerary
+        besties + 1 — travel itinerary
       </p>
     </div>
 
@@ -37,10 +30,6 @@ const dateLine = `${fmt(trip.startDate)} — ${fmt(trip.endDate).replace(/^[A-Z]
         class="absolute inset-0 hidden"
         style="background: linear-gradient(135deg, #e9c8b8 0%, #b5563a 60%, #7a3520 100%);"
       ></div>
-      <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent"></div>
-      <div class="absolute inset-x-0 bottom-6 text-center text-white/90">
-        <p class="text-[11px] tracking-[0.3em]">BASED IN {trip.base.toUpperCase()}</p>
-      </div>
     </div>
   </div>
 </Base>

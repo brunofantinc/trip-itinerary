@@ -4,8 +4,6 @@ import Card from '../components/Card.astro';
 import { trip } from '../data/trip';
 
 const a = trip.accommodation;
-const fmt = (iso: string) =>
-  iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'TBD';
 ---
 
 <Base title="Logistics">
@@ -16,9 +14,6 @@ const fmt = (iso: string) =>
           <p class="text-xs uppercase tracking-wider text-[color:var(--color-muted)]">Stay</p>
           <p class="mt-1 font-display text-xl">{a.name}</p>
           <p class="mt-0.5 text-sm text-[color:var(--color-muted)]">{a.address}</p>
-          <p class="mt-2 text-xs text-[color:var(--color-muted)]">
-            {fmt(a.checkIn)} → {fmt(a.checkOut)}
-          </p>
         </div>
         {a.mapsUrl && (
           <a

@@ -7,15 +7,13 @@ export interface ItineraryItem {
 }
 
 export interface Day {
-  date: string; // ISO
-  focus: string; // e.g. "Alfama & Baixa"
+  focus: string;
   summary?: string;
   items: ItineraryItem[];
 }
 
 export const itinerary: Day[] = [
   {
-    date: '2026-09-04',
     focus: 'Depart Montreal',
     summary: 'Overnight flight YUL → LIS.',
     items: [
@@ -23,15 +21,13 @@ export const itinerary: Day[] = [
     ],
   },
   {
-    date: '2026-09-05',
     focus: 'Arrival · Lisbon',
     items: [
       { time: 'AM', title: 'Land at LIS', kind: 'travel' },
     ],
   },
-  // TODO: fill days Sept 6–11
+  // TODO: fill remaining days
   {
-    date: '2026-09-12',
     focus: 'Return',
     summary: 'Fly home.',
     items: [
