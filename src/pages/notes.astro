@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+
+const packing: string[] = [];
+const ideas: string[] = [];
+---
+
+<Base title="Notes" subtitle="Packing list and open ideas.">
+  <div class="space-y-4">
+    <Card>
+      <h2 class="font-display text-xl">Packing</h2>
+      {packing.length === 0 ? (
+        <p class="mt-2 text-sm text-[color:var(--color-muted)]">TBD</p>
+      ) : (
+        <ul class="mt-2 space-y-1 text-sm">
+          {packing.map((p) => <li>· {p}</li>)}
+        </ul>
+      )}
+    </Card>
+
+    <Card>
+      <h2 class="font-display text-xl">Day-trip / bonus ideas</h2>
+      {ideas.length === 0 ? (
+        <p class="mt-2 text-sm text-[color:var(--color-muted)]">TBD</p>
+      ) : (
+        <ul class="mt-2 space-y-1 text-sm">
+          {ideas.map((p) => <li>· {p}</li>)}
+        </ul>
+      )}
+    </Card>
+  </div>
+</Base>

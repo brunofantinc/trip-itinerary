@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import { places, type PlaceKind } from '../data/places';
+
+const kinds: { key: PlaceKind; label: string }[] = [
+  { key: 'eat', label: 'Eat' },
+  { key: 'drink', label: 'Drink' },
+  { key: 'see', label: 'See' },
+  { key: 'do', label: 'Do' },
+];
+
+// Sort by neighborhood so same-area places sit close together within any filter.
+const sorted = [...places].sort((a, b) =>
+  a.neighborhood.localeCompare(b.neighborhood) || a.name.localeCompare(b.name),
+);
+---
+
+<Base title="Places" subtitle="Restaurants, sights, and spots.">
+  <div class="mb-6 -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8">
+    <div id="place-filters" class="flex gap-2 text-xs">
+      <button
+        type="button"
+        data-filter="all"
+        aria-pressed="true"
+        class="filter-chip whitespace-nowrap rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-accent)] px-3 py-1.5 text-white"
+      >
+        All
+      </button>
+      {kinds.map((k) => (
+        <button
+          type="button"
+          data-filter={k.key}
+          aria-pressed="false"
+          class="filter-chip whitespace-nowrap rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-surface)] px-3 py-1.5 text-[color:var(--color-muted)] hover:border-[color:var(--color-accent-soft)]"
+        >
+          {k.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <ul id="place-list" class="space-y-3">
+    {sorted.map((p) => (
+      <li data-place data-kind={p.kind}>
+        <Card>
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <p class="font-medium">{p.name}</p>
+              {p.blurb && <p class="mt-0.5 text-sm text-[color:var(--color-muted)]">{p.blurb}</p>}
+              <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-[color:var(--color-muted)]">
+                <span class="rounded-full bg-[color:var(--color-accent-soft)] px-2 py-0.5 text-[color:var(--color-ink)]">{p.kind}</span>
+                <span>· {p.neighborhood}</span>
+                {p.price && <span>· {p.price}</span>}
+                {p.hours && <span>· {p.hours}</span>}
+                {p.booking && <span>· {p.booking}</span>}
+              </div>
+            </div>
+            {p.mapsUrl && (
+              <a
+                href={p.mapsUrl}
+                target="_blank"
+                rel="noopener"
+                class="shrink-0 rounded-full border border-[color:var(--color-line)] px-3 py-1 text-xs text-[color:var(--color-accent)] hover:border-[color:var(--color-accent-soft)]"
+              >
+                Map ↗
+              </a>
+            )}
+          </div>
+        </Card>
+      </li>
+    ))}
+  </ul>
+  <p id="place-empty" hidden class="mt-6 text-center text-sm text-[color:var(--color-muted)]">
+    Nothing matching that filter.
+  </p>
+</Base>
+
+<script>
+  const activeCls = ['border-[color:var(--color-accent)]', 'bg-[color:var(--color-accent)]', 'text-white'];
+  const idleCls = ['border-[color:var(--color-line)]', 'bg-[color:var(--color-surface)]', 'text-[color:var(--color-muted)]'];
+
+  const setChipState = (btn: HTMLButtonElement, active: boolean) => {
+    btn.setAttribute('aria-pressed', String(active));
+    const add = active ? activeCls : idleCls;
+    const remove = active ? idleCls : activeCls;
+    remove.forEach((c) => btn.classList.remove(c));
+    add.forEach((c) => btn.classList.add(c));
+  };
+
+  const chips = document.querySelectorAll<HTMLButtonElement>('#place-filters .filter-chip');
+  const places = document.querySelectorAll<HTMLElement>('[data-place]');
+  const empty = document.getElementById('place-empty');
+
+  const apply = (filter: string) => {
+    let visible = 0;
+    places.forEach((el) => {
+      const match = filter === 'all' || el.dataset.kind === filter;
+      el.hidden = !match;
+      if (match) visible++;
+    });
+    if (empty) empty.hidden = visible > 0;
+  };
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => setChipState(c, c === chip));
+      apply(chip.dataset.filter ?? 'all');
+    });
+  });
+</script>

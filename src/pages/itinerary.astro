@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import { itinerary } from '../data/itinerary';
+
+const fmtDay = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
+
+const kindDot: Record<string, string> = {
+  travel: 'bg-sky-500',
+  eat: 'bg-[color:var(--color-accent)]',
+  see: 'bg-amber-500',
+  do: 'bg-emerald-500',
+  rest: 'bg-slate-400',
+};
+---
+
+<Base title="Itinerary" subtitle="Day by day. Times are loose.">
+  <ol class="space-y-6">
+    {itinerary.map((day, i) => (
+      <li>
+        <div class="mb-2 flex items-baseline justify-between">
+          <h2 class="font-display text-2xl">Day {i + 1}</h2>
+          <span class="text-sm text-[color:var(--color-muted)]">{fmtDay(day.date)}</span>
+        </div>
+        <Card>
+          <p class="mb-3 text-sm font-medium text-[color:var(--color-accent)]">{day.focus}</p>
+          {day.summary && <p class="mb-3 text-sm text-[color:var(--color-muted)]">{day.summary}</p>}
+          <ul class="space-y-2">
+            {day.items.map((it) => (
+              <li class="flex gap-3">
+                <span class="w-12 shrink-0 pt-1 text-xs tabular-nums text-[color:var(--color-muted)]">
+                  {it.time ?? ''}
+                </span>
+                <span class={`mt-2 inline-block h-2 w-2 shrink-0 rounded-full ${kindDot[it.kind ?? 'do'] ?? 'bg-slate-400'}`}></span>
+                <div class="flex-1">
+                  <p class="text-[15px]">{it.title}</p>
+                  {it.note && <p class="text-xs text-[color:var(--color-muted)]">{it.note}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </li>
+    ))}
+  </ol>
+</Base>
